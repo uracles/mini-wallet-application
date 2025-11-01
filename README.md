@@ -1,6 +1,6 @@
-# Mini Wallet Application 🚀
+# Mini Wallet Application
 
-A production-grade Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integrates with Ethereum blockchain APIs. This application provides secure wallet management, balance checking, fund transfers, and transaction history tracking on Ethereum testnet.
+A Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integrates with Ethereum blockchain APIs. This application provides secure wallet management, balance checking, fund transfers, and transaction history tracking on Ethereum testnet.
 
 [![CI/CD](https://github.com/yourusername/mini-wallet-app/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yourusername/mini-wallet-app/actions)
 [![Coverage](https://img.shields.io/badge/coverage-70%25-green)]()
