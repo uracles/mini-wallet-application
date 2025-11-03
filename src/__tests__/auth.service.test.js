@@ -1,7 +1,7 @@
 import authService from '../services/auth.service.js';
 import { query } from '../config/database.js';
 
-// Mock database
+
 jest.mock('../config/database.js');
 
 describe('Auth Service', () => {
@@ -14,7 +14,7 @@ describe('Auth Service', () => {
       const token = authService.generateToken(1, 'testuser');
       
       expect(typeof token).toBe('string');
-      expect(token.split('.').length).toBe(3); // JWT has 3 parts
+      expect(token.split('.').length).toBe(3);
     });
 
     test('should include user data in token', () => {
@@ -49,7 +49,7 @@ describe('Auth Service', () => {
 
   describe('register', () => {
     test('should register new user successfully', async () => {
-      query.mockResolvedValueOnce({ rows: [] }); // No existing user
+      query.mockResolvedValueOnce({ rows: [] }); 
       query.mockResolvedValueOnce({
         rows: [{
           id: 1,
@@ -92,7 +92,7 @@ describe('Auth Service', () => {
       const passwordHash = insertCall[1][1];
       
       expect(passwordHash).not.toBe('Password123!');
-      expect(passwordHash.length).toBeGreaterThan(50); // Bcrypt hashes are long
+      expect(passwordHash.length).toBeGreaterThan(50);
     });
   });
 
@@ -177,7 +177,7 @@ describe('Auth Service', () => {
       };
       
       query.mockResolvedValueOnce({ rows: [mockUser] });
-      query.mockResolvedValueOnce({ rows: [] }); // Update query
+      query.mockResolvedValueOnce({ rows: [] }); 
       
       const bcrypt = require('bcrypt');
       bcrypt.compare = jest.fn().mockResolvedValue(true);
