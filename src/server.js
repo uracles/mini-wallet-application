@@ -27,8 +27,12 @@ app.use(helmet({
 }));
 
 // CORS configuration
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : '*';
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: allowedOrigins,
   credentials: true
 }));
 
@@ -43,15 +47,7 @@ app.use(rateLimitMiddleware);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Serve static files from public directory
-app.use(express.static(join(__dirname, '..', 'public')));
-
-// Serve index.html at root
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'public', 'index.html'));
-});
-
-// Health check endpoint
+// Health check endpoint (must be before static files)
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'healthy',
@@ -61,8 +57,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
+// API info endpoint
+app.get('/api', (req, res) => {
   res.json({
     message: 'Mini Wallet API',
     version: '1.0.0',
@@ -72,6 +68,14 @@ app.get('/', (req, res) => {
     },
     documentation: 'See README.md for API documentation'
   });
+});
+
+// Serve static files from public directory
+app.use(express.static(join(__dirname, '..', 'public')));
+
+// Serve index.html at root (this will be last so static files take precedence)
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Initialize Apollo Server
