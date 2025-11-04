@@ -110,12 +110,14 @@ async function startServer() {
     app.use(notFoundHandler);
     app.use(errorHandler);
     
-    // Start listening
-    app.listen(PORT, () => {
-      logger.info(`🚀 Server ready at http://localhost:${PORT}`);
-      logger.info(`📊 GraphQL endpoint: http://localhost:${PORT}/graphql`);
-      logger.info(`🏥 Health check: http://localhost:${PORT}/health`);
+    // Start listening on 0.0.0.0 for Render (critical!)
+    const HOST = '0.0.0.0';
+    app.listen(PORT, HOST, () => {
+      logger.info(`🚀 Server ready at http://${HOST}:${PORT}`);
+      logger.info(`📊 GraphQL endpoint: http://${HOST}:${PORT}/graphql`);
+      logger.info(`🏥 Health check: http://${HOST}:${PORT}/health`);
       logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      logger.info(`🔗 Public URL: https://mini-wallet-application.onrender.com`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);
