@@ -83,7 +83,6 @@ async function runMigrations() {
     await client.query('BEGIN');
     console.log(' Transaction started');
     
-    // Create migrations tracking table
     console.log(' Creating migrations table...');
     await client.query(`
       CREATE TABLE IF NOT EXISTS migrations (
@@ -94,14 +93,13 @@ async function runMigrations() {
     `);
     console.log('Migrations table ready');
     
-    // Get already executed migrations
+
     const { rows: executedMigrations } = await client.query(
       'SELECT name FROM migrations'
     );
     const executedNames = executedMigrations.map(row => row.name);
     console.log(`Found ${executedNames.length} previously executed migrations`);
     
-    // Run pending migrations
     for (const migration of migrations) {
       if (!executedNames.includes(migration.name)) {
         console.log(`Running migration: ${migration.name}`);

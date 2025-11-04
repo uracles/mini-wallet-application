@@ -11,7 +11,7 @@ describe('Auth Service', () => {
 
   describe('generateToken', () => {
     test('should generate valid JWT token', () => {
-      const token = authService.generateToken(1, 'testuser');
+      const token = authService.generateToken(1, 'tuser');
       
       expect(typeof token).toBe('string');
       expect(token.split('.').length).toBe(3);
@@ -19,7 +19,7 @@ describe('Auth Service', () => {
 
     test('should include user data in token', () => {
       const userId = 123;
-      const username = 'testuser';
+      const username = 'tuser';
       const token = authService.generateToken(userId, username);
       
       const decoded = authService.verifyToken(token);
@@ -31,7 +31,7 @@ describe('Auth Service', () => {
 
   describe('verifyToken', () => {
     test('should verify valid token', () => {
-      const token = authService.generateToken(1, 'testuser');
+      const token = authService.generateToken(1, 'tuser');
       const decoded = authService.verifyToken(token);
       
       expect(decoded).toHaveProperty('userId');
@@ -100,7 +100,7 @@ describe('Auth Service', () => {
     test('should login user with correct credentials', async () => {
       const mockUser = {
         id: 1,
-        username: 'testuser',
+        username: 'tuser',
         password_hash: '$2b$10$test.hash',
         created_at: new Date()
       };
@@ -111,11 +111,11 @@ describe('Auth Service', () => {
       const bcrypt = require('bcrypt');
       bcrypt.compare = jest.fn().mockResolvedValue(true);
 
-      const result = await authService.login('testuser', 'Password123!');
+      const result = await authService.login('tuser', 'Password123!');
       
       expect(result).toHaveProperty('user');
       expect(result).toHaveProperty('token');
-      expect(result.user.username).toBe('testuser');
+      expect(result.user.username).toBe('tuser');
     });
 
     test('should throw error for non-existent user', async () => {
@@ -129,7 +129,7 @@ describe('Auth Service', () => {
     test('should throw error for incorrect password', async () => {
       const mockUser = {
         id: 1,
-        username: 'testuser',
+        username: 'tuser',
         password_hash: '$2b$10$test.hash',
         created_at: new Date()
       };
@@ -141,7 +141,7 @@ describe('Auth Service', () => {
       bcrypt.compare = jest.fn().mockResolvedValue(false);
 
       await expect(
-        authService.login('testuser', 'WrongPassword123!')
+        authService.login('tuser', 'WrongPassword123!')
       ).rejects.toThrow('Invalid credentials');
     });
   });
@@ -150,7 +150,7 @@ describe('Auth Service', () => {
     test('should return user when found', async () => {
       const mockUser = {
         id: 1,
-        username: 'testuser',
+        username: 'tuser',
         created_at: new Date()
       };
       

@@ -393,9 +393,3 @@ The playground provides:
 5. **Respect rate limits** - Implement exponential backoff for retries
 6. **Validate inputs** - Always validate data before sending to API
 7. **Monitor transactions** - Check transaction status after sending funds
-
-## Support
-
-For issues or questions:
-- GitHub Issues: https://github.com/yourusername/mini-wallet-app/issues
-- Email: support@example.com

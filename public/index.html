@@ -917,11 +917,9 @@
                     </div>
                 `).join('');
 
-                // Populate send from dropdown
                 sendFromSelect.innerHTML = '<option value="">Select a wallet</option>' +
                     wallets.map((w, i) => `<option value="${w.id}">Wallet ${i + 1} - ${w.address.substring(0, 10)}...</option>`).join('');
 
-                // Populate transaction filter dropdown
                 txFilterSelect.innerHTML = '<option value="">All Wallets</option>' +
                     wallets.map((w, i) => `<option value="${w.id}">Wallet ${i + 1} - ${w.address.substring(0, 10)}...</option>`).join('');
 
@@ -1042,11 +1040,9 @@
                 `;
                 document.getElementById('sendMessage').innerHTML = message;
                 
-                // Clear form
                 document.getElementById('sendToAddress').value = '';
                 document.getElementById('sendAmount').value = '';
                 
-                // Update stats
                 await updateTotalBalance();
                 
             } catch (error) {
@@ -1058,7 +1054,6 @@
             document.getElementById('sendFromWallet').value = walletId;
             switchTab('send');
             
-            // Load balance for selected wallet
             checkBalance(walletId).then(() => {
                 const balanceText = document.querySelector(`#wallet-${walletId}-balance .amount`);
                 if (balanceText) {
@@ -1125,7 +1120,6 @@
                     totalTxCount += data.transactions.length;
                 }
                 
-                // Sort by date (newest first)
                 allTransactions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 
                 displayTransactions(allTransactions);
@@ -1241,7 +1235,6 @@
                               type === 'warning' ? 'alert-warning' : 'alert-info';
             element.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
             
-            // Auto-clear non-success messages after 10 seconds
             if (type !== 'success') {
                 setTimeout(() => {
                     element.innerHTML = '';
@@ -1251,7 +1244,6 @@
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                // Show temporary success message
                 const temp = document.createElement('div');
                 temp.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px 20px; border-radius: 8px; z-index: 9999; animation: slideDown 0.3s ease-out;';
                 temp.textContent = '✓ Copied to clipboard!';
@@ -1276,7 +1268,6 @@
             }
         });
 
-        // Close modal when clicking outside
         document.getElementById('txModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();

@@ -1,24 +1,22 @@
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import logger from '../utils/logger.js';
 
-// Rate limiter for general API requests
+
 const rateLimiter = new RateLimiterMemory({
   points: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   duration: parseInt(process.env.RATE_LIMIT_WINDOW_MS) / 1000 || 900, // 15 minutes
-  blockDuration: 60, // Block for 1 minute if exceeded
+  blockDuration: 60,
 });
 
-// Stricter rate limiter for authentication endpoints
 const authRateLimiter = new RateLimiterMemory({
-  points: 5, // 5 attempts
-  duration: 900, // Per 15 minutes
-  blockDuration: 900, // Block for 15 minutes
+  points: 5,
+  duration: 900, 
+  blockDuration: 900, 
 });
 
-// Rate limiter for transaction endpoints
 const transactionRateLimiter = new RateLimiterMemory({
-  points: 10, // 10 transactions
-  duration: 3600, // Per hour
+  points: 10, 
+  duration: 3600, 
   blockDuration: 3600, // Block for 1 hour
 });
 

@@ -151,7 +151,6 @@ export const resolvers = {
      * Register a new user
      */
     register: async (_, { input }) => {
-      // Validate input
       const validation = validate(schemas.register, input);
       if (!validation.valid) {
         throw new Error(validation.errors.map(e => e.message).join(', '));
@@ -176,7 +175,6 @@ export const resolvers = {
      * Login user
      */
     login: async (_, { input }) => {
-      // Validate input
       const validation = validate(schemas.login, input);
       if (!validation.valid) {
         throw new Error(validation.errors.map(e => e.message).join(', '));
@@ -205,7 +203,6 @@ export const resolvers = {
       
       const network = input?.network || 'sepolia';
       
-      // Validate network
       if (!['mainnet', 'sepolia', 'goerli'].includes(network)) {
         throw new Error('Invalid network. Use mainnet, sepolia, or goerli');
       }
@@ -220,7 +217,7 @@ export const resolvers = {
         address: wallet.address,
         network: wallet.network,
         createdAt: wallet.created_at,
-        mnemonic: wallet.mnemonic // Only returned on creation
+        mnemonic: wallet.mnemonic 
       };
     },
 
@@ -230,7 +227,6 @@ export const resolvers = {
     sendFunds: async (_, { input }, context) => {
       const user = requireAuth(context);
       
-      // Validate input
       const validation = validate(schemas.sendFunds, input);
       if (!validation.valid) {
         throw new Error(validation.errors.map(e => e.message).join(', '));
