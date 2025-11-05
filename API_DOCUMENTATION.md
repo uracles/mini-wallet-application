@@ -1,8 +1,9 @@
-# API Documentation
+# API Documentation: This link is the API collections on Postman.
+  https://web.postman.co/workspace/My-Workspace~f820e2b6-40e3-4203-88df-2dab18bc111c/collection/31055006-8a9599fc-6885-4990-b95d-32976df2538a?action=share&source=copy-link&creator=31055006
 
 ## Base URL
 
-- **Development**: `http://localhost:4000`
+- **Development**: `http://localhost:10000`
 - **Production**: `https://your-app-name.onrender.com`
 
 ## Authentication

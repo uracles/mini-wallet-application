@@ -4,6 +4,7 @@ import { requireAuth } from '../middleware/auth.middleware.js';
 import { validate, schemas } from '../utils/validation.js';
 import logger from '../utils/logger.js';
 import { AppError } from '../utils/errors.js';
+import { formatDate } from '../utils/dateFormatter.js';
 
 export const resolvers = {
   Query: {
@@ -22,7 +23,7 @@ export const resolvers = {
       return {
         id: userData.id,
         username: userData.username,
-        createdAt: userData.created_at
+        createdAt: formatDate(userData.created_at)
       };
     },
 
@@ -39,8 +40,8 @@ export const resolvers = {
         userId: wallet.user_id,
         address: wallet.address,
         network: wallet.network,
-        createdAt: wallet.created_at,
-        updatedAt: wallet.updated_at
+        createdAt: formatDate(wallet.created_at),
+        updatedAt: formatDate(wallet.updated_at)
       }));
     },
 
@@ -61,8 +62,8 @@ export const resolvers = {
         userId: wallet.user_id,
         address: wallet.address,
         network: wallet.network,
-        createdAt: wallet.created_at,
-        updatedAt: wallet.updated_at
+        createdAt: formatDate(wallet.created_at),
+        updatedAt: formatDate(wallet.updated_at)
       };
     },
 
@@ -114,7 +115,7 @@ export const resolvers = {
         status: tx.status,
         blockNumber: tx.block_number?.toString(),
         timestamp: tx.timestamp,
-        createdAt: tx.created_at
+        createdAt: formatDate(tx.created_at)
       }));
     },
 
@@ -142,7 +143,7 @@ export const resolvers = {
         status: transaction.status,
         blockNumber: transaction.block_number?.toString(),
         timestamp: transaction.timestamp,
-        createdAt: transaction.created_at
+        createdAt: formatDate(transaction.created_at)
       };
     }
   },
@@ -166,7 +167,7 @@ export const resolvers = {
         user: {
           id: user.id,
           username: user.username,
-          createdAt: user.createdAt
+          createdAt: formatDate(user.createdAt)
         },
         token
       };
@@ -190,7 +191,7 @@ export const resolvers = {
         user: {
           id: user.id,
           username: user.username,
-          createdAt: user.createdAt
+          createdAt: formatDate(user.createdAt)
         },
         token
       };
@@ -217,7 +218,7 @@ export const resolvers = {
         userId: wallet.user_id,
         address: wallet.address,
         network: wallet.network,
-        createdAt: wallet.created_at,
+        createdAt: formatDate(wallet.created_at),
         mnemonic: wallet.mnemonic 
       };
     },
@@ -255,7 +256,7 @@ export const resolvers = {
           status: transaction.status,
           blockNumber: transaction.block_number?.toString(),
           timestamp: transaction.timestamp,
-          createdAt: transaction.created_at
+          createdAt: formatDate(transaction.created_at)
         },
         hash: txData.hash,
         from: txData.from,
