@@ -71,49 +71,6 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ---
 
-## Railway Deployment
-
-Railway provides simple deployment with integrated PostgreSQL.
-
-### Steps:
-
-1. **Install Railway CLI**
-   ```bash
-   npm install -g @railway/cli
-   ```
-
-2. **Login**
-   ```bash
-   railway login
-   ```
-
-3. **Initialize Project**
-   ```bash
-   railway init
-   ```
-
-4. **Add PostgreSQL**
-   ```bash
-   railway add
-   # Select PostgreSQL
-   ```
-
-5. **Set Environment Variables**
-   ```bash
-   railway variables set NODE_ENV=production
-   railway variables set JWT_SECRET=<your-secret>
-   railway variables set ALCHEMY_API_KEY=<your-key>
-   railway variables set ETHERSCAN_API_KEY=<your-key>
-   railway variables set ENCRYPTION_KEY=<your-key>
-   ```
-
-6. **Deploy**
-   ```bash
-   railway up
-   ```
-
----
-
 ## Heroku Deployment
 
 ### Prerequisites:
@@ -352,10 +309,6 @@ curl -X POST https://your-app.com/graphql \
 View logs in Render dashboard
 ```
 
-**Railway:**
-```bash
-railway logs
-```
 
 **Heroku:**
 ```bash
@@ -430,9 +383,3 @@ pg_dump -U username -d mini_wallet_db > backup.sql
 
 ---
 
-## Support
-
-For deployment issues:
-- Check the [main README](README.md)
-- Review [API Documentation](API_DOCUMENTATION.md)
-- Open an issue on GitHub
