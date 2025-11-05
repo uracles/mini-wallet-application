@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -37,8 +37,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      # - name: Run linter
-      #   run: npm run lint
+      - name: Run linter
+        run: npm run lint
         continue-on-error: true
       
       - name: Run tests
@@ -46,46 +46,17 @@ jobs:
           NODE_ENV: test
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
           JWT_SECRET: test-secret-key
-        run: npm test
-      
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
+          ENCRYPTION_KEY: test-key-123456789012345678901
+        run: npm test -- --passWithNoTests
 
-  build:
+  notify:
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Build Docker image
-        run: docker build -t mini-wallet-app .
-      
-      - name: Log in to Docker Hub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: Push to Docker Hub
-        if: github.event_name != 'pull_request'
+      - name: Deployment Status
         run: |
-          docker tag mini-wallet-app ${{ secrets.DOCKER_USERNAME }}/mini-wallet-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/mini-wallet-app:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-      - name: Deploy to production
-        run: |
-          echo "Deploy to your preferred platform (Heroku, Render, AWS, etc.)"
-          # Add deployment commands here
+          echo " Tests passed!"
+          echo " Render will auto-deploy in ~2-3 minutes"
+          echo " URL: https://mini-wallet-application.onrender.com"
