@@ -678,7 +678,13 @@
     </div>
 
     <script>
-        const API_URL = 'http://localhost:10000/graphql';
+        // const API_URL = 'http://localhost:10000/graphql';
+        // Auto-detect environment
+        
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:10000/graphql'
+    : window.location.origin + '/graphql';
+
         let token = localStorage.getItem('token');
         let currentUser = null;
         let wallets = [];
