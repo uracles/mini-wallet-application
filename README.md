@@ -154,7 +154,7 @@ docker run -p 10000:10000 --env-file .env mini-wallet-app
 
 ### GraphQL Endpoint
 
-`POST http://localhost:4000/graphql`
+`POST http://localhost:10000/graphql`
 
 ### Authentication
 
@@ -306,54 +306,7 @@ npm run test:watch
 npm test -- --coverage
 ```
 
-### Test Coverage
-
-Current test coverage: **70%+**
-
-Coverage includes:
-- ✅ Encryption utilities
-- ✅ Validation utilities
-- ✅ Authentication service
-- ✅ Blockchain service
-- ✅ Wallet operations
-- ✅ GraphQL resolvers
-
-## 📊 Project Structure
-
-```
-mini-wallet-app/
-├── src/
-│   ├── config/
-│   │   └── database.js          # Database configuration
-│   ├── database/
-│   │   └── migrate.js            # Database migrations
-│   ├── graphql/
-│   │   ├── typeDefs.js           # GraphQL schema
-│   │   └── resolvers.js          # GraphQL resolvers
-│   ├── middleware/
-│   │   ├── auth.middleware.js    # Authentication middleware
-│   │   ├── rateLimiter.middleware.js  # Rate limiting
-│   │   └── errorHandler.middleware.js # Error handling
-│   ├── services/
-│   │   ├── auth.service.js       # Authentication logic
-│   │   ├── blockchain.service.js # Blockchain integration
-│   │   └── wallet.service.js     # Wallet operations
-│   ├── utils/
-│   │   ├── encryption.js         # Encryption utilities
-│   │   ├── logger.js             # Winston logger
-│   │   └── validation.js         # Input validation
-│   ├── __tests__/                # Unit tests
-│   └── server.js                 # Application entry point
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml             # CI/CD pipeline
-├── docker-compose.yml            # Docker Compose configuration
-├── Dockerfile                    # Docker image definition
-├── package.json
-└── README.md
-```
-
-## 🔒 Security Best Practices
+##  Security Best Practices
 
 1. **Environment Variables**: Never commit `.env` files
 2. **Private Keys**: Encrypted using AES-256-GCM with unique salt/IV per encryption
@@ -367,7 +320,7 @@ mini-wallet-app/
 7. **SQL Injection**: Protected via parameterized queries
 8. **CORS**: Configured for specific origins in production
 
-## 🏗️ Architecture Decisions
+##  Architecture Decisions
 
 ### 1. Database Choice: PostgreSQL
 - **Why**: ACID compliance, excellent support for transactions, mature ecosystem
@@ -393,7 +346,7 @@ mini-wallet-app/
 - **Why**: Stateless, scalable, industry standard
 - **Benefit**: Easy to implement, works well with GraphQL context
 
-## 🌐 Deployment
+##  Deployment
 
 ### Recommended Platforms
 
@@ -403,16 +356,6 @@ mini-wallet-app/
    - Environment variable management
    - [Deploy Guide](https://render.com/docs)
 
-2. **Railway**
-   - Simple deployment
-   - Integrated PostgreSQL
-   - GitHub integration
-   - [Deploy Guide](https://docs.railway.app/)
-
-3. **Heroku**
-   - Mature platform
-   - Add-on ecosystem
-   - [Deploy Guide](https://devcenter.heroku.com/articles/deploying-nodejs)
 
 ### Deployment Steps (Render Example)
 
@@ -423,76 +366,4 @@ mini-wallet-app/
 5. Set environment variables
 6. Deploy!
 
-### Environment Variables for Production
 
-```env
-NODE_ENV=production
-DATABASE_URL=<your-production-database-url>
-JWT_SECRET=<strong-secret-key>
-ALCHEMY_API_KEY=<your-alchemy-key>
-ETHERSCAN_API_KEY=<your-etherscan-key>
-ENCRYPTION_KEY=<strong-encryption-key>
-CORS_ORIGIN=https://your-frontend-domain.com
-```
-
-## 📈 Performance Considerations
-
-- Database connection pooling (max 20 connections)
-- Query optimization with indexes
-- Rate limiting to prevent abuse
-- Efficient transaction status updates (background jobs)
-- Caching of blockchain data (future enhancement)
-
-## 🔮 Future Enhancements
-
-- [ ] WebSocket support for real-time updates
-- [ ] Support for multiple blockchain networks
-- [ ] ERC-20 token support
-- [ ] Transaction fee estimation
-- [ ] Wallet export functionality
-- [ ] Admin dashboard
-- [ ] Email notifications
-- [ ] 2FA authentication
-- [ ] Redis caching layer
-- [ ] Prometheus metrics
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Author
-
-Built with ❤️ by [Your Name]
-
-## 🙏 Acknowledgments
-
-- [Ethers.js](https://docs.ethers.org/) for blockchain integration
-- [Apollo GraphQL](https://www.apollographql.com/) for GraphQL implementation
-- [Alchemy](https://www.alchemy.com/) for Ethereum node infrastructure
-- [Etherscan](https://etherscan.io/) for blockchain explorer API
-
-## 📞 Support
-
-For issues and questions:
-- Open an issue on [GitHub](https://github.com/yourusername/mini-wallet-app/issues)
-- Email: your.email@example.com
-
-## 🔗 Links
-
-- **Live Demo**: [https://mini-wallet-app.onrender.com](https://mini-wallet-app.onrender.com)
-- **API Documentation**: [https://mini-wallet-app.onrender.com/graphql](https://mini-wallet-app.onrender.com/graphql)
-- **GitHub Repository**: [https://github.com/yourusername/mini-wallet-app](https://github.com/yourusername/mini-wallet-app)
-
----
-
-⭐ If you find this project useful, please consider giving it a star on GitHub!
