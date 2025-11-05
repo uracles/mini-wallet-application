@@ -25,9 +25,25 @@ logger.info(`🔧 Starting server on port ${PORT}`);
 logger.info(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
 
 // Security middleware
+// app.use(helmet({
+//   contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+//   crossOriginEmbedderPolicy: false
+// }));
 app.use(helmet({
-  contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
-  crossOriginEmbedderPolicy: false
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts
+      styleSrc: ["'self'", "'unsafe-inline'"],  // Allow inline styles
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https://mini-wallet-application.onrender.com", "https://*.aivencloud.com"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
 }));
 
 // CORS configuration
