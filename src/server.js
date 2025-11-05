@@ -29,14 +29,21 @@ logger.info(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
 //   contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
 //   crossOriginEmbedderPolicy: false
 // }));
+// Security middleware with CSP that allows inline event handlers
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts
-      styleSrc: ["'self'", "'unsafe-inline'"],  // Allow inline styles
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-hashes'"],
+      scriptSrcAttr: ["'unsafe-inline'", "'unsafe-hashes'"],  // Allows onclick, onsubmit, etc.
+      styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://mini-wallet-application.onrender.com", "https://*.aivencloud.com"],
+      connectSrc: [
+        "'self'", 
+        "http://localhost:10000",  // For local testing
+        "https://mini-wallet-application.onrender.com", 
+        "https://*.aivencloud.com"
+      ],
       fontSrc: ["'self'"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
