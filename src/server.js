@@ -17,8 +17,12 @@ import logger from './utils/logger.js';
 // Load environment variables
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+// CRITICAL: Use Render's PORT environment variable
+const PORT = parseInt(process.env.PORT, 10) || 10000;
 const app = express();
+
+logger.info(`🔧 Starting server on port ${PORT}`);
+logger.info(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
 
 // Security middleware
 app.use(helmet({
@@ -33,7 +37,9 @@ const allowedOrigins = process.env.CORS_ORIGIN
 
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Body parsing middleware
@@ -53,7 +59,8 @@ app.get('/health', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV
+    environment: process.env.NODE_ENV,
+    port: PORT
   });
 });
 
@@ -91,8 +98,11 @@ const server = new ApolloServer({
 // Start server
 async function startServer() {
   try {
+    logger.info('🔄 Initializing Apollo Server...');
+    
     // Start Apollo Server
     await server.start();
+    logger.info('✅ Apollo Server started');
     
     // Apply Apollo middleware
     app.use(
@@ -106,45 +116,61 @@ async function startServer() {
       })
     );
     
+    logger.info('✅ GraphQL middleware applied');
+    
     // Error handling
     app.use(notFoundHandler);
     app.use(errorHandler);
     
-    // Start listening on 0.0.0.0 for Render (critical!)
+    // CRITICAL FOR RENDER: Bind to 0.0.0.0 on the PORT env variable
     const HOST = '0.0.0.0';
+    
     app.listen(PORT, HOST, () => {
-      logger.info(`🚀 Server ready at http://${HOST}:${PORT}`);
-      logger.info(`📊 GraphQL endpoint: http://${HOST}:${PORT}/graphql`);
-      logger.info(`🏥 Health check: http://${HOST}:${PORT}/health`);
+      logger.info('='.repeat(60));
+      logger.info('🚀 SERVER STARTED SUCCESSFULLY');
+      logger.info('='.repeat(60));
+      logger.info(`📍 Host: ${HOST}`);
+      logger.info(`📍 Port: ${PORT}`);
+      logger.info(`📊 GraphQL: http://${HOST}:${PORT}/graphql`);
+      logger.info(`🏥 Health: http://${HOST}:${PORT}/health`);
       logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
       logger.info(`🔗 Public URL: https://mini-wallet-application.onrender.com`);
+      logger.info('='.repeat(60));
     });
   } catch (error) {
-    logger.error('Failed to start server:', error);
+    logger.error('❌ Failed to start server:', error);
+    logger.error('Stack trace:', error.stack);
     process.exit(1);
   }
 }
 
 // Handle uncaught errors
 process.on('uncaughtException', (error) => {
-  logger.error('Uncaught Exception:', error);
+  logger.error('❌ Uncaught Exception:', error);
+  logger.error('Stack trace:', error.stack);
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  logger.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
   process.exit(1);
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM signal received: closing HTTP server');
-  process.exit(0);
+  logger.info('⚠️ SIGTERM signal received: closing HTTP server');
+  server.stop().then(() => {
+    logger.info('✅ Apollo Server stopped');
+    process.exit(0);
+  });
 });
 
 process.on('SIGINT', () => {
-  logger.info('SIGINT signal received: closing HTTP server');
-  process.exit(0);
+  logger.info('⚠️ SIGINT signal received: closing HTTP server');
+  server.stop().then(() => {
+    logger.info('✅ Apollo Server stopped');
+    process.exit(0);
+  });
 });
 
 startServer();
