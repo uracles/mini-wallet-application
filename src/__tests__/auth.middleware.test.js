@@ -1,3 +1,4 @@
+import { jest, expect, describe, test, beforeEach } from '@jest/globals';
 import { authenticate, authenticateGraphQL, requireAuth } from '../middleware/auth.middleware.js';
 import authService from '../services/auth.service.js';
 

@@ -1,10 +1,9 @@
+import { jest, expect, describe, test, beforeEach } from '@jest/globals';
 import UserRepository from '../repositories/UserRepository.js';
 import { query } from '../config/database.js';
 
 // Mock the database module
-jest.mock('../config/database.js', () => ({
-  query: jest.fn()
-}));
+jest.mock('../config/database.js');
 
 describe('UserRepository', () => {
   beforeEach(() => {
@@ -248,3 +247,4 @@ describe('UserRepository', () => {
     });
   });
 });
+

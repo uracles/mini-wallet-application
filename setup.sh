@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🚀 Mini Wallet Application Setup"
+echo "Mini Wallet Application Setup"
 echo "=================================="
 echo ""
 
@@ -16,10 +16,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Check Node.js version
-echo "📦 Checking Node.js version..."
+echo " Checking Node.js version..."
 NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
 if [ "$NODE_VERSION" -lt 18 ]; then
-    echo -e "${RED}❌ Node.js 18 or higher is required${NC}"
+    echo -e "${RED} Node.js 18 or higher is required${NC}"
     echo "Current version: $(node -v)"
     echo "Please install Node.js 18+ from https://nodejs.org/"
     exit 1
@@ -27,15 +27,15 @@ fi
 echo -e "${GREEN}✓ Node.js version OK: $(node -v)${NC}"
 
 # Check npm
-echo "📦 Checking npm..."
+echo " Checking npm..."
 if ! command -v npm &> /dev/null; then
-    echo -e "${RED}❌ npm is not installed${NC}"
+    echo -e "${RED} npm is not installed${NC}"
     exit 1
 fi
 echo -e "${GREEN}✓ npm OK: $(npm -v)${NC}"
 
 # Check PostgreSQL
-echo "🐘 Checking PostgreSQL..."
+echo " Checking PostgreSQL..."
 if ! command -v psql &> /dev/null; then
     echo -e "${YELLOW}⚠ PostgreSQL client not found${NC}"
     echo "Please install PostgreSQL or provide a remote database URL"
@@ -44,11 +44,11 @@ else
 fi
 
 echo ""
-echo "📥 Installing dependencies..."
+echo " Installing dependencies..."
 npm install
 
 echo ""
-echo "🔐 Setting up environment variables..."
+echo " Setting up environment variables..."
 
 if [ -f .env ]; then
     echo -e "${YELLOW}⚠ .env file already exists${NC}"
@@ -67,7 +67,7 @@ fi
 
 # Generate secrets
 echo ""
-echo "🔑 Generating secure secrets..."
+echo " Generating secure secrets..."
 JWT_SECRET=$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
 ENCRYPTION_KEY=$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
 
@@ -86,7 +86,7 @@ echo -e "${GREEN}✓ Generated JWT_SECRET${NC}"
 echo -e "${GREEN}✓ Generated ENCRYPTION_KEY${NC}"
 
 echo ""
-echo "⚙️  Configuration"
+echo "  Configuration"
 echo "================"
 echo ""
 echo "You need to configure the following in the .env file:"
@@ -132,7 +132,7 @@ else
 fi
 
 echo ""
-echo "✅ Setup Complete!"
+echo " Setup Complete!"
 echo "=================="
 echo ""
 echo "Next steps:"
@@ -141,10 +141,10 @@ echo "1. Start the development server:"
 echo "   npm run dev"
 echo ""
 echo "2. The API will be available at:"
-echo "   http://localhost:4000/graphql"
+echo "   http://localhost:10000/graphql"
 echo ""
 echo "3. Health check:"
-echo "   http://localhost:4000/health"
+echo "   http://localhost:10000/health"
 echo ""
 echo "4. Import postman_collection.json into Postman for testing"
 echo ""
@@ -152,5 +152,3 @@ echo "5. Read the documentation:"
 echo "   - README.md - Overview and getting started"
 echo "   - API_DOCUMENTATION.md - Complete API reference"
 echo "   - DEPLOYMENT.md - Deployment guide"
-echo ""
-echo "🎉 Happy coding!"

@@ -1,3 +1,4 @@
+import { jest, expect, describe, test, beforeEach, afterEach, beforeAll, afterAll } from '@jest/globals';
 import authService from '../services/auth.service.js';
 import { query } from '../config/database.js';
 
@@ -212,3 +213,4 @@ describe('Auth Service', () => {
     });
   });
 });
+

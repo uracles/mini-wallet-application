@@ -1,3 +1,4 @@
+import { jest, expect, describe, test, beforeEach } from '@jest/globals';
 import walletService from '../services/wallet.service.js';
 import blockchainService from '../services/blockchain.service.js';
 import walletRepository from '../repositories/WalletRepository.js';
@@ -346,3 +347,4 @@ describe('WalletService', () => {
     });
   });
 });
+

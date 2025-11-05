@@ -1,10 +1,7 @@
 # Mini Wallet Application
 
-A Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integrates with Ethereum blockchain APIs. This application provides secure wallet management, balance checking, fund transfers, and transaction history tracking on Ethereum testnet.
+Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integrates with Ethereum blockchain APIs. This application provides secure wallet management, balance checking, fund transfers, and transaction history tracking on Ethereum testnet.
 
-[![CI/CD](https://github.com/yourusername/mini-wallet-app/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yourusername/mini-wallet-app/actions)
-[![Coverage](https://img.shields.io/badge/coverage-70%25-green)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 🎯 Features
 
@@ -35,7 +32,7 @@ A Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integ
   - Error handling and monitoring
   - Database migrations
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend**: Node.js 18+, Express.js
 - **GraphQL**: Apollo Server 4
@@ -46,7 +43,7 @@ A Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integ
 - **DevOps**: Docker, Docker Compose, GitHub Actions
 - **Security**: JWT, bcrypt, Helmet, rate-limiter-flexible
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Node.js >= 18.0.0
 - npm >= 9.0.0
@@ -54,7 +51,7 @@ A Mini Wallet Application built with Node.js, GraphQL, and PostgreSQL that integ
 - Alchemy API key (free tier available at [alchemy.com](https://www.alchemy.com/))
 - Etherscan API key (free at [etherscan.io](https://etherscan.io/apis))
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Clone the Repository
 
@@ -74,30 +71,29 @@ npm install
 Copy the example environment file and configure it:
 
 ```bash
-cp .env.example .env
+cp  .env
 ```
 
 Edit `.env` with your configuration:
 
 ```env
 # Server
-PORT=4000
+PORT=10000
 NODE_ENV=development
 
 # Database
 DATABASE_URL=postgresql://username:password@localhost:5432/mini_wallet_db
 
 # JWT Secret (generate a strong secret)
-JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters
+JWT_SECRET={secret}
 
 # Ethereum Configuration
 ETHEREUM_NETWORK=sepolia
-ALCHEMY_API_KEY=your-alchemy-api-key
-ETHERSCAN_API_KEY=your-etherscan-api-key
+ALCHEMY_API_KEY={alchemy_key}
+ETHERSCAN_API_KEY={etherscan-api-key}
 
 # Encryption Key (32 characters minimum)
-ENCRYPTION_KEY=your-32-character-encryption-key
-```
+ENCRYPTION_KEY={encryption-key}
 
 ### 4. Database Setup
 
@@ -125,9 +121,9 @@ npm run dev
 npm start
 ```
 
-The server will start at `http://localhost:4000`
+The server will start at `http://localhost:10000`
 
-## 🐳 Docker Setup
+## Docker Setup
 
 ### Using Docker Compose (Recommended)
 
@@ -151,10 +147,10 @@ This will start both PostgreSQL and the application in containers.
 docker build -t mini-wallet-app .
 
 # Run container
-docker run -p 4000:4000 --env-file .env mini-wallet-app
+docker run -p 10000:10000 --env-file .env mini-wallet-app
 ```
 
-## 📚 API Documentation
+##  API Documentation
 
 ### GraphQL Endpoint
 
@@ -176,8 +172,8 @@ Authorization: Bearer <your-jwt-token>
 ```graphql
 mutation Register {
   register(input: {
-    username: "testuser"
-    password: "Password123!"
+    username: "tuser"
+    password: "PassWord2@"
   }) {
     user {
       id
@@ -193,8 +189,8 @@ mutation Register {
 ```graphql
 mutation Login {
   login(input: {
-    username: "testuser"
-    password: "Password123!"
+    username: "tuser"
+    password: "PassWord@2"
   }) {
     user {
       id
@@ -220,7 +216,7 @@ mutation CreateWallet {
 }
 ```
 
-**⚠️ Important**: Save the `mnemonic` phrase securely! It's only returned once during wallet creation.
+** Important**: Save the `mnemonic` phrase securely! It's only returned once during wallet creation.
 
 ##### Send Funds
 ```graphql
@@ -295,7 +291,7 @@ query Transactions {
 }
 ```
 
-## 🧪 Testing
+##  Testing
 
 ### Run Tests
 
