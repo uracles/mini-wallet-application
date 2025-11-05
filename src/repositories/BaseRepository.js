@@ -1,17 +1,12 @@
 import { query } from '../config/database.js';
 import logger from '../utils/logger.js';
 
-/**
- * Base Repository class with common database operations
- */
+
 class BaseRepository {
   constructor(tableName) {
     this.tableName = tableName;
   }
 
-  /**
-   * Executes a raw query
-   */
   async execute(sql, params = []) {
     try {
       return await query(sql, params);

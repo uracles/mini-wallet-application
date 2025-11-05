@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Wallet App - Full Featured</title>
+    <title>Mini Wallet App</title>
     <style>
         * {
             margin: 0;
@@ -573,7 +573,6 @@
 
         <!-- Main App Section -->
         <div id="appSection" class="hidden">
-            <!-- User Info Bar -->
             <div class="user-info-bar">
                 <div class="user-details">
                     <div class="user-avatar" id="userAvatar"></div>
@@ -690,16 +689,15 @@
         // const API_URL = 'http://localhost:10000/graphql';
         // Auto-detect environment
 
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:10000/graphql'
-    : window.location.origin + '/graphql';
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:10000/graphql'
+            : window.location.origin + '/graphql';
 
         let token = localStorage.getItem('token');
         let currentUser = null;
         let wallets = [];
         let selectedWalletId = null;
 
-        // Check if user is already logged in
         if (token) {
             showApp();
             loadUserInfo();
@@ -932,15 +930,12 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
                     </div>
                 `).join('');
 
-                // Populate send from dropdown
                 sendFromSelect.innerHTML = '<option value="">Select a wallet</option>' +
                     wallets.map((w, i) => `<option value="${w.id}">Wallet ${i + 1} - ${w.address.substring(0, 10)}...</option>`).join('');
 
-                // Populate transaction filter dropdown
                 txFilterSelect.innerHTML = '<option value="">All Wallets</option>' +
                     wallets.map((w, i) => `<option value="${w.id}">Wallet ${i + 1} - ${w.address.substring(0, 10)}...</option>`).join('');
 
-                // Update stats
                 document.getElementById('totalWallets').textContent = wallets.length;
                 
                 // Load balances for all wallets

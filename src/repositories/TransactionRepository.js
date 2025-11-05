@@ -3,7 +3,7 @@ import { query } from '../config/database.js';
 import logger from '../utils/logger.js';
 
 /**
- * Repository for transaction-related database operations
+ * Repository for transaction database operations
  */
 class TransactionRepository extends BaseRepository {
   constructor() {

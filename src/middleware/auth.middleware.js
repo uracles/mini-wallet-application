@@ -18,10 +18,9 @@ export const authenticate = async (req, res, next) => {
       ? authHeader.substring(7)
       : authHeader;
     
-    // Verify token
+  
     const decoded = authService.verifyToken(token);
     
-    // Attach user info to request
     req.user = {
       userId: decoded.userId,
       username: decoded.username

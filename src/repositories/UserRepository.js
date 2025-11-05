@@ -2,7 +2,7 @@ import BaseRepository from './BaseRepository.js';
 import logger from '../utils/logger.js';
 
 /**
- * Repository for user-related database operations
+ * Repository for user database operations
  */
 class UserRepository extends BaseRepository {
   constructor() {
